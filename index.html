@@ -3,75 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECOBID - Premium Safety Provider</title>
+    <title>에코비드 (ECOBID) - 극한의 현장, 완벽한 솔루션</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* 기본 스타일 */
-        body, h1, h2, h3, p { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #000; font-family: 'Pretendard', sans-serif; color: #fff; line-height: 1.6; overflow-x: hidden; }
-
-        /* 언어 선택 버튼 */
-        .lang-switcher {
-            position: fixed; top: 25px; right: 25px; z-index: 10001;
-            display: flex; gap: 8px; background: rgba(0,0,0,0.6); padding: 5px; border-radius: 30px; border: 1px solid #444;
+        body { margin: 0; font-family: 'Noto Sans KR', 'Noto Sans SC', sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 5%; background: rgba(255, 255, 255, 0.95); 
+            position: sticky; top: 0; z-index: 1000; 
         }
-        .lang-btn {
-            background: none; border: none; color: #888; padding: 6px 16px; cursor: pointer; 
-            border-radius: 20px; font-size: 13px; font-weight: bold; transition: 0.3s;
+        .lang-btn { 
+            padding: 8px 16px; border: none; border-radius: 20px; cursor: pointer; 
+            font-size: 13px; font-weight: bold; transition: 0.3s; background: transparent; color: #666;
         }
-        .lang-btn.active { background: #ea580c; color: #fff; }
+        .lang-btn.active { background: #FF6600 !important; color: #fff !important; }
 
-        /* 메인 슬라이드 (3초 간격) */
-        .hero-slider { position: relative; width: 100%; height: 750px; overflow: hidden; display: flex; align-items: center; padding: 0 10%; }
-        .slide-item { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s; z-index: 1; }
-        .slide-item.active { opacity: 1; z-index: 2; }
-        .slide-item::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)); }
+        .hero { position: relative; height: 550px; overflow: hidden; background: #000; }
+        .slide-item { 
+            position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; 
+            background-size: cover; background-position: center; 
+        }
+        .slide-item.active { opacity: 0.5; }
+        .hero-content { position: absolute; top: 50%; left: 5%; transform: translateY(-50%); z-index: 10; max-width: 800px; }
         
-        .hero-content { position: relative; z-index: 10; max-width: 900px; }
-        .hero-content h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .hero-slogan { font-size: 16px; font-weight: bold; color: #fff; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; opacity: 0.9; }
+        .hero-content h1 { font-size: 48px; margin-bottom: 20px; line-height: 1.2; color: #fff; word-break: keep-all; }
+        .hero-btn { display: inline-block; background: #FF6600; color: #fff; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        /* 장비 솔루션 섹션 */
-        .content-section { max-width: 1200px; margin: 100px auto; padding: 0 20px; }
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
-        .card { background-color: #0f0f0f; border: 1px solid #1f1f1f; padding: 45px 20px; text-align: center; border-radius: 12px; transition: 0.3s; }
-        .card:hover { border-color: #ea580c; transform: translateY(-5px); }
-        .card img { width: 60px; height: 60px; margin-bottom: 25px; filter: brightness(1.2); }
+        section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .sec-title { font-size: 32px; color: #FF6600; margin-bottom: 20px; font-weight: bold; }
+        .sec-desc { font-size: 16px; color: #ccc; margin-bottom: 40px; max-width: 800px; line-height: 1.6; }
 
-        /* 인증 대행 섹션 */
-        .cert-section { background-color: #050505; padding: 120px 20px; border-top: 1px solid #1a1a1a; }
-        .cert-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .cert-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .cert-card { background:#111; padding:35px 20px; border-radius:12px; text-align:center; border:1px solid #222; }
-        .cert-card div { font-size:26px; font-weight:800; color:#ea580c; margin-bottom:8px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: #111; padding: 30px; border: 1px solid #333; border-radius: 10px; text-align: center; transition: 0.3s; }
+        .card:hover { border-color: #FF6600; transform: translateY(-5px); }
+        .card img { width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain; }
+        .card h3 { font-size: 20px; color: #fff; margin-bottom: 10px; }
 
-        /* 버튼 및 모달 */
-        .btn-orange-main { background-color: #ea580c; color: #fff; padding: 18px 45px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block; cursor: pointer; border: none; font-size: 16px; transition: 0.3s; }
-        #inquiryModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; justify-content:center; align-items:center; }
-        .modal-content { background:#111; width:540px; padding:40px; border:1px solid #ea580c; border-radius:12px; position:relative; text-align: center; }
-        input, textarea { width:100%; padding:14px; margin-bottom:15px; background:#222; border:1px solid #333; color:#fff; border-radius:4px; font-size: 15px; }
+        .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .cert-item { background: #1a1a1a; padding: 30px; border-radius: 10px; border-left: 5px solid #FF6600; }
+        .cert-item h4 { color: #FF6600; margin: 0 0 10px 0; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-box { background: #fff; color: #333; padding: 40px; border-radius: 10px; width: 90%; max-width: 500px; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
+        .inquiry-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 15px; background: #2E7D32; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        footer { background-color: #111; color: #888; padding: 50px 5%; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
-    <div class="lang-switcher">
-        <button class="lang-btn active" id="btn-ko" onclick="changeLang('ko')">KR</button>
-        <button class="lang-btn" id="btn-en" onclick="changeLang('en')">EN</button>
-    </div>
+    <nav>
+        <div id="logo-container"><a href="/"><img id="main-logo" src="ecobid_logo_kor.png" style="height: 85px; width: auto;"></a></div>
+        <div style="display: flex; gap: 5px;">
+            <button id="btn-ko" onclick="changeLang('ko')" class="lang-btn active">KR</button>
+            <button id="btn-en" onclick="changeLang('en')" class="lang-btn">EN</button>
+            <button id="btn-zh" onclick="changeLang('zh')" class="lang-btn">中文</button>
+        </div>
+    </nav>
 
-    <header class="hero-slider">
+    <div class="hero">
         <div class="slide-item active" style="background-image: url('slide1.jpg');"></div>
         <div class="slide-item" style="background-image: url('slide2.jpg');"></div>
-        <div class="slide-item" style="background-image: url('slide3.jpg');"></div>
         <div class="hero-content">
-            <span class="label" id="txt-hero-label">TRUSTED PROCUREMENT & SUPPLY PARTNER</span>
+            <div id="txt-hero-slogan" class="hero-slogan">TRUSTED PROCUREMENT & SUPPLY PARTNER</div>
             <h1 id="txt-hero-title">극한의 현장,<br>완벽한 솔루션</h1>
-            <p id="txt-hero-sub" style="font-size: 18px; color: #ccc; margin-bottom: 40px;">에코비드는 글로벌 시장에서 검증된 최상위 등급의 장비만을 엄선하여<br>대한민국 국방 및 공공기관 현장에 가장 신속하고 안정적으로 공급합니다.</p>
-            <a href="javascript:void(0);" onclick="openInquiry()" class="btn-orange-main" id="txt-inquiry-main">INQUIRY →</a>
+            <p id="txt-hero-sub">에코비드는 글로벌 시장에서 검증된 최상위 등급의 장비만을 엄선하여<br>대한민국 국방 및 공공기관 현장에 가장 신속하고 안정적으로 공급합니다.</p>
+            <a onclick="openInquiry()" class="hero-btn" id="txt-inquiry-main">INQUIRY →</a>
         </div>
-    </header>
+    </div>
 
-    <section class="content-section">
-        <h2 id="txt-sec1-title" style="font-size: 32px; color: #ea580c;">장비 솔루션</h2>
-        <div class="grid-layout">
+    <section id="services">
+        <h2 id="txt-sec1-title" class="sec-title">장비 솔루션</h2>
+        <div class="grid">
             <div class="card"><img src="icon_mask.png"><h3 id="icon-t1">호흡보호구</h3><p id="icon-d1">비상호흡기 및 공기 공급 시스템</p></div>
             <div class="card"><img src="icon_rope.png"><h3 id="icon-t2">특수 로프</h3><p id="icon-d2">고강도 패스트로프 및 전술 로프</p></div>
             <div class="card"><img src="icon_ski.png"><h3 id="icon-t3">전투훈련용</h3><p id="icon-d3">전술 스키 및 바인딩 시스템</p></div>
@@ -80,80 +86,107 @@
         </div>
     </section>
 
-    <section class="cert-section">
-        <div class="cert-container">
-            <div class="cert-text">
-                <p style="color:#ea580c; font-weight:bold; letter-spacing:2px; margin-bottom:15px;">PROCUREMENT CONSULTING</p>
-                <h2 style="font-size: 38px; margin-bottom:25px;" id="txt-sec2-title">인증 대행 솔루션</h2>
-                <p id="txt-sec2-desc" style="color:#888; font-size: 17px; margin-bottom:35px;">복잡한 국내 시험 인증 과정을 에코비드가 대행하여 파트너사의 효율적인 조달 시장 진입을 돕습니다.</p>
-                <a href="javascript:void(0);" onclick="openInquiry()" class="btn-orange-main" id="txt-inquiry-cert">상담 문의하기</a>
-            </div>
-            <div class="cert-grid">
-                <div class="cert-card"><div>KC</div><p id="cert-t1">국가통합인증</p></div>
-                <div class="cert-card"><div>KCC</div><p id="cert-t2">전파인증</p></div>
-                <div class="cert-card"><div>KCS</div><p id="cert-t3">산업안전인증</p></div>
-                <div class="cert-card"><div>KOLAS</div><p id="cert-t4">공인시험성적</p></div>
-            </div>
+    <section class="cert-sec">
+        <h2 id="txt-sec2-title" class="sec-title">인증 대행 솔루션</h2>
+        <p id="txt-sec2-desc" class="sec-desc">복잡한 국내 시험 인증 과정을 에코비드가 대행하여 파트너사의 효율적인 조달 시장 진입을 돕습니다.</p>
+        <div class="cert-grid">
+            <div class="cert-item"><h4>KC</h4><span id="cert-t1">국가통합인증</span></div>
+            <div class="cert-item"><h4>KCC</h4><span id="cert-t2">전파인증</span></div>
+            <div class="cert-item"><h4>KCS</h4><span id="cert-t3">산업안전인증</span></div>
+            <div class="cert-item"><h4>KOLAS</h4><span id="cert-t4">공인시험성적</span></div>
         </div>
     </section>
 
-    <div id="inquiryModal">
-        <div class="modal-content">
-            <span style="position:absolute; top:20px; right:25px; font-size:30px; cursor:pointer; color:#888;" onclick="closeInquiry()">&times;</span>
+    <footer>
+        <div id="footer-container">
+            <h3 id="f-company" style="color: #4CAF50; margin-bottom: 15px;">에코비드 (ECOBID)</h3>
+            <p id="f-addr"><strong>주소:</strong> 서울특별시 관악구 낙성대로 38, 낙성대 R&D센터 406호 (08790)</p>
+            <p id="f-tel"><strong>대표전화:</strong> 070-7797-8611 | <strong>팩스:</strong> 070-7797-8790</p>
+            <p><strong>Email:</strong> ecobid8612@naver.com</p>
+            <p id="f-copy" style="margin-top: 20px; font-size: 12px;">© 2026 ECOBID. All Rights Reserved. 본 사이트의 무단 복제를 금합니다.</p>
+        </div>
+    </footer>
+
+    <div id="inquiryModal" class="modal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeInquiry()">&times;</span>
             <div id="step1">
-                <h2 style="color:#ea580c; margin-bottom:30px;" id="modal-title">문의 유형 선택</h2>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
-                    <button onclick="goSupply()" style="padding:45px 10px; background:#222; color:#fff; border:1px solid #333; cursor:pointer; border-radius:8px;"><span id="modal-btn-s">📦 납품 문의</span></button>
-                    <button onclick="goStep2()" style="padding:45px 10px; background:#222; color:#fff; border:1px solid #333; cursor:pointer; border-radius:8px;"><span id="modal-btn-b">🛒 구매 문의</span></button>
-                </div>
+                <h2 id="modal-title" style="margin-bottom:25px; text-align:center;">문의 유형 선택</h2>
+                <button id="modal-btn-s" onclick="goSupply()" class="submit-btn" style="background:#444; margin-bottom:10px;">📦 납품 문의</button>
+                <button id="modal-btn-b" onclick="goStep2()" class="submit-btn">🛒 구매 문의</button>
             </div>
             <div id="step2-buy" style="display:none;">
-                <h2 style="color:#ea580c; margin-bottom:20px;" id="modal-buy-title">구매 견적 요청</h2>
-                <input type="text" id="b_name" placeholder="성함/기관명">
-                <input type="text" id="b_contact" placeholder="연락처">
-                <textarea id="b_content" placeholder="상세 내용"></textarea>
-                <button onclick="sendDirectEmail()" id="submitBtn" class="btn-orange-main" style="width:100%;" id="modal-submit">견적 요청 완료</button>
+                <h2 id="modal-buy-title" style="margin-bottom:25px; text-align:center;">구매 견적 요청</h2>
+                <input type="text" id="b_name" class="inquiry-input" placeholder="성함/기관명">
+                <input type="text" id="b_contact" class="inquiry-input" placeholder="연락처">
+                <textarea id="b_content" class="inquiry-input" rows="4" placeholder="상세 내용"></textarea>
+                <button id="modal-submit" onclick="sendDirectEmail()" class="submit-btn">견적 요청 완료</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. 다국어 데이터 및 전환
         let currentLang = 'ko';
         const langPack = {
-            ko: {
-                "txt-hero-title": "극한의 현장,<br>완벽한 솔루션",
+            ko: { 
+                "txt-hero-slogan": "TRUSTED PROCUREMENT & SUPPLY PARTNER",
+                "txt-hero-title": "극한의 현장,<br>완벽한 솔루션", 
                 "txt-hero-sub": "에코비드는 글로벌 시장에서 검증된 최상위 등급의 장비만을 엄선하여<br>대한민국 국방 및 공공기관 현장에 가장 신속하고 안정적으로 공급합니다.",
-                "txt-inquiry-main": "INQUIRY →",
-                "txt-sec1-title": "장비 솔루션",
+                "txt-inquiry-main": "INQUIRY →", "txt-sec1-title": "장비 솔루션",
                 "icon-t1": "호흡보호구", "icon-d1": "비상호흡기 및 공기 공급 시스템",
                 "icon-t2": "특수 로프", "icon-d2": "고강도 패스트로프 및 전술 로프",
                 "icon-t3": "전투훈련용", "icon-d3": "전술 스키 및 바인딩 시스템",
                 "icon-t4": "위성 통신", "icon-d4": "이동식 위성 단말 및 인프라",
                 "icon-t5": "응급구조", "icon-d5": "바스켓 스트레쳐 및 구조 장비",
-                "txt-sec2-title": "인증 대행 솔루션",
+                "txt-sec2-title": "인증 대행 솔루션", 
                 "txt-sec2-desc": "복잡한 국내 시험 인증 과정을 에코비드가 대행하여 파트너사의 효율적인 조달 시장 진입을 돕습니다.",
-                "txt-inquiry-cert": "상담 문의하기",
                 "cert-t1": "국가통합인증", "cert-t2": "전파인증", "cert-t3": "산업안전인증", "cert-t4": "공인시험성적",
                 "modal-title": "문의 유형 선택", "modal-btn-s": "📦 납품 문의", "modal-btn-b": "🛒 구매 문의",
-                "modal-buy-title": "구매 견적 요청", "b_name": "성함/기관명", "b_contact": "연락처", "b_content": "상세 내용", "modal-submit": "견적 요청 완료"
+                "modal-buy-title": "구매 견적 요청", "b_name": "성함/기관명", "b_contact": "연락처", "b_content": "상세 내용", "modal-submit": "견적 요청 완료",
+                "f-company": "에코비드 (ECOBID)", 
+                "f-addr": "<strong>주소:</strong> 서울특별시 관악구 낙성대로 38, 낙성대 R&D센터 406호 (08790)",
+                "f-tel": "<strong>대표전화:</strong> 070-7797-8611 | <strong>팩스:</strong> 070-7797-8790",
+                "f-copy": "© 2026 ECOBID. All Rights Reserved. 본 사이트의 무단 복제를 금합니다."
             },
-            en: {
-                "txt-hero-title": "Extreme Fields,<br>Absolute Solutions",
+            en: { 
+                "txt-hero-slogan": "TRUSTED PROCUREMENT & SUPPLY PARTNER",
+                "txt-hero-title": "Extreme Fields,<br>Absolute Solutions", 
                 "txt-hero-sub": "ECOBID meticulously selects top-tier, globally proven equipment<br>to ensure rapid and stable supply for the ROK Defense and public sectors.",
-                "txt-inquiry-main": "INQUIRY →",
-                "txt-sec1-title": "Equipment Solutions",
+                "txt-inquiry-main": "INQUIRY →", "txt-sec1-title": "Equipment Solutions",
                 "icon-t1": "Respiratory", "icon-d1": "Emergency Breathing & Air Supply Systems",
                 "icon-t2": "Specialized Ropes", "icon-d2": "High-Strength Fast-Ropes & Tactical Ropes",
                 "icon-t3": "Tactical Training", "icon-d3": "Tactical Skiing & Binding Systems",
                 "icon-t4": "Satellite Comms", "icon-d4": "Mobile Satellite Terminals & Infrastructure",
                 "icon-t5": "Rescue Gear", "icon-d5": "Basket Stretchers & Rugged Rescue Equipment",
-                "txt-sec2-title": "Certification Consulting",
+                "txt-sec2-title": "Certification Consulting", 
                 "txt-sec2-desc": "ECOBID manages complex domestic testing and certification processes to facilitate efficient market entry for our partners.",
-                "txt-inquiry-cert": "Consulting Inquiry",
-                "cert-t1": "KC Certification", "cert-t2": "KCC(Wireless) Cert", "cert-t3": "KCS(Safety) Cert", "cert-t4": "KOLAS Test Report",
+                "cert-t1": "KC Cert", "cert-t2": "Wireless Cert", "cert-t3": "Safety Cert", "cert-t4": "KOLAS Report",
                 "modal-title": "Select Inquiry Type", "modal-btn-s": "📦 Supply Inquiry", "modal-btn-b": "🛒 Purchase Inquiry",
-                "modal-buy-title": "Request for Quotation", "b_name": "Name / Organization", "b_contact": "Contact Info", "b_content": "Inquiry Details", "modal-submit": "Submit Request"
+                "modal-buy-title": "Request for Quotation", "b_name": "Name/Organization", "b_contact": "Contact", "b_content": "Details", "modal-submit": "Submit",
+                "f-company": "ECOBID", 
+                "f-addr": "<strong>Addr:</strong> #406, Nakseongdae R&D Center, 38 Nakseongdae-ro, Gwanak-gu, Seoul, Korea (08790)",
+                "f-tel": "<strong>Tel:</strong> +82-70-7797-8611 | <strong>Fax:</strong> +82-70-7797-8790",
+                "f-copy": "© 2026 ECOBID. All Rights Reserved. Unauthorized duplication prohibited."
+            },
+            zh: { 
+                "txt-hero-slogan": "TRUSTED PROCUREMENT & SUPPLY PARTNER",
+                "txt-hero-title": "极限环境,<br>完美的解决方案", 
+                "txt-hero-sub": "ECOBID 严选经过全球市场验证的顶级设备，<br>确保为大韩民国国防及公共部门提供最快速、稳定的供应。",
+                "txt-inquiry-main": "立即咨询 →", "txt-sec1-title": "设备解决方案",
+                "icon-t1": "呼吸保护", "icon-d1": "紧急呼吸及空气供应系统",
+                "icon-t2": "特种绳索", "icon-d2": "高强度快绳及战术绳索",
+                "icon-t3": "战术训练", "icon-d3": "战术滑雪及固定器系统",
+                "icon-t4": "卫星通信", "icon-d4": "移动卫星终端及基础设施",
+                "icon-t5": "应急救援", "icon-d5": "篮式担架及坚固的救援设备",
+                "txt-sec2-title": "认证代理解决方案", 
+                "txt-sec2-desc": "ECOBID 代办复杂的韩国国内测试认证流程，助力合作伙伴高效进入采购市场。",
+                "cert-t1": "国家整合认证", "cert-t2": "无线电认证", "cert-t3": "产业安全认证", "cert-t4": "公认测试报告",
+                "modal-title": "选择咨询类型", "modal-btn-s": "📦 供货咨询", "modal-btn-b": "🛒 购买咨询",
+                "modal-buy-title": "请求购买报价", "b_name": "姓名/单位", "b_contact": "联系方式", "b_content": "详细内容", "modal-submit": "提交请求",
+                "f-company": "ECOBID (에코비드)", 
+                "f-addr": "<strong>地址:</strong> 首尔特别市冠岳区落星垈路 38, 落星垈 R&D 中心 406 号 (08790)",
+                "f-tel": "<strong>电话:</strong> +82-70-7797-8611 | <strong>传真:</strong> +82-70-7797-8790",
+                "f-copy": "© 2026 ECOBID. All Rights Reserved. 版权所有，严禁擅自复制。"
             }
         };
 
@@ -161,6 +194,8 @@
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + lang).classList.add('active');
+            const logoImg = document.getElementById('main-logo');
+            if (logoImg) logoImg.src = (lang === 'ko') ? 'ecobid_logo_kor.png' : 'ecobid_logo.png';
             for (let id in langPack[lang]) {
                 const el = document.getElementById(id);
                 if (el) {
@@ -170,16 +205,14 @@
             }
         }
 
-        // 2. 슬라이드 (3초)
         const slides = document.querySelectorAll('.slide-item');
         let currentSlide = 0;
         setInterval(() => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 3000);
+        }, 4000);
 
-        // 3. 모달 제어
         function openInquiry() { document.getElementById('inquiryModal').style.display = 'flex'; }
         function closeInquiry() { 
             document.getElementById('inquiryModal').style.display = 'none'; 
@@ -187,26 +220,20 @@
             document.getElementById('step2-buy').style.display = 'none';
         }
         function goStep2() { document.getElementById('step1').style.display = 'none'; document.getElementById('step2-buy').style.display = 'block'; }
-        
-        // [중요] 언어별 구글 폼 링크 분기
         function goSupply() {
             const krForm = "https://docs.google.com/forms/d/e/1FAIpQLScAUHUY5th-A2KmL90RtYpH6M9_mqN2ZhU1kaAMY-WMTW7TLA/viewform";
             const enForm = "https://docs.google.com/forms/d/e/1FAIpQLSeilz9Etq8X-Ns3ncA99AumcdfYqjzA8QVoeLwtgRCpwGOshg/viewform";
-            const url = (currentLang === 'en') ? enForm : krForm;
-            window.open(url, '_blank');
+            window.open(currentLang === 'ko' ? krForm : enForm, '_blank');
             closeInquiry();
         }
-
-        // 구글 스크립트 견적 전송
         function sendDirectEmail() {
             const scriptUrl = "https://script.google.com/macros/s/AKfycbzL34kBDorC0-D_MpuY2z4Z6vqUS49tlMMSHs5j4Oc_6behHYl_nQOBya0ljqOoEEFgfg/exec";
             const name = document.getElementById('b_name').value;
             const contact = document.getElementById('b_contact').value;
             const content = document.getElementById('b_content').value;
-            if(!name || !contact) { alert(currentLang === 'en' ? "Please fill in required fields." : "정보를 입력해주세요."); return; }
-            
-            fetch(scriptUrl, { method: 'POST', body: new URLSearchParams({ name, contact, content }) })
-            .then(() => { alert(currentLang === 'en' ? "Your request has been sent." : "성공적으로 접수되었습니다."); closeInquiry(); });
+            if(!name || !contact) { alert(currentLang === 'en' ? "Missing required fields." : "정보를 입력해주세요."); return; }
+            fetch(scriptUrl, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ name, contact, content }) })
+            .then(() => { alert(currentLang === 'en' ? "Sent successfully." : "접수되었습니다."); closeInquiry(); });
         }
     </script>
 </body>
