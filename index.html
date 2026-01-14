@@ -7,36 +7,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;800&family=Nanum+Brush+Script&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; font-family: 'Noto Sans KR', sans-serif; background-color: #000; color: #fff; line-height: 1.6; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 5px 5%; background: rgba(255, 255, 255, 0.98); position: sticky; top: 0; z-index: 1000; min-height: 110px; height: auto; }
+        
+        /* [공통] 네비게이션 스타일 */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 5px 5%; background: rgba(255, 255, 255, 0.98); 
+            position: sticky; top: 0; z-index: 1000; min-height: 110px; height: auto; 
+        }
         .nav-logo-area { flex: 1; display: flex; align-items: center; }
-        .nav-logo-area img { height: 75px; width: auto; }
+        .nav-logo-area img { height: 75px; width: auto; transition: 0.3s; }
         .nav-center-area { flex: 5; text-align: center; color: #2E7D32; font-size: 44px; letter-spacing: -1.5px; word-break: keep-all; line-height: 1.1; font-family: 'Nanum Brush Script', cursive; padding: 10px 20px; }
         .lang-en .nav-center-area, .lang-zh .nav-center-area { font-family: 'Playfair Display', serif; font-style: italic; font-size: 32px; }
         .highlight-brand { font-family: 'Noto Sans KR', sans-serif; font-style: normal; font-weight: 800; text-transform: uppercase; color: #1b5e20; }
         .nav-lang-area { flex: 1; display: flex; gap: 5px; justify-content: flex-end; }
         .lang-btn { padding: 8px 14px; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s; background: transparent; color: #666; }
         .lang-btn.active { background: #2E7D32 !important; color: #fff !important; }
+
+        /* [모바일 대응] 네비게이션 최적화 (768px 이하) */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 10px 5%; min-height: auto; }
+            .nav-logo-area { width: 100%; justify-content: space-between; margin-bottom: 10px; }
+            .nav-logo-area img { height: 50px; } /* 로고 크기 축소 */
+            .nav-center-area { font-size: 24px; padding: 5px 0; order: 3; width: 100%; border-top: 1px solid #eee; margin-top: 5px; } /* 문구 하단 배치 및 크기 조정 */
+            .lang-en .nav-center-area, .lang-zh .nav-center-area { font-size: 18px; }
+            .nav-lang-area { width: 100%; justify-content: center; margin-bottom: 5px; }
+        }
+
+        /* 메인 구성 요소 */
         .hero { position: relative; height: 550px; overflow: hidden; background: #000; }
+        @media (max-width: 768px) { .hero { height: 400px; } }
         .slide-item { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s; background-size: cover; background-position: center; }
         .slide-item.active { opacity: 0.5; }
         .hero-content { position: absolute; top: 50%; left: 5%; transform: translateY(-50%); z-index: 10; max-width: 800px; }
         .hero-slogan { font-size: 18px; font-weight: bold; color: #fff; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
         .hero-btn { display: inline-block; background: #FF6600; color: #fff; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+
         section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        @media (max-width: 768px) { section { padding: 40px 5%; } }
         .sec-title { font-size: 32px; color: #FF6600; margin-bottom: 20px; font-weight: bold; }
+        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: #111; padding: 30px; border: 1px solid #333; border-radius: 10px; text-align: center; transition: 0.3s; cursor: pointer; }
-        .card:hover { border-color: #FF6600; transform: translateY(-5px); background: #1a1a1a; }
-        .card img { width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain; }
+        /* 모달 시스템 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
         .modal-box { background: #fff; color: #333; padding: 40px; border-radius: 10px; width: 90%; max-width: 750px; position: relative; text-align: center; box-sizing: border-box; }
+        @media (max-width: 768px) { .modal-box { padding: 20px; } }
         .modal-close { position: absolute; top: 10px; right: 15px; font-size: 30px; cursor: pointer; color: #333; z-index: 10; font-weight: bold; }
         #modal-img-container { position: relative; margin: 10px 0 20px 0; background: #000; border-radius: 10px; overflow: hidden; height: 350px; display: flex; align-items: center; justify-content: center; }
+        @media (max-width: 768px) { #modal-img-container { height: 200px; } }
         #detail-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,102,0,0.8); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; z-index: 5; }
-        .arrow-left { left: 10px; } .arrow-right { right: 10px; }
         .submit-btn { width: 100%; padding: 15px; background: #2E7D32; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-top: 10px; }
-        footer { background-color: #111; color: #888; padding: 50px 5%; border-top: 1px solid #222; }
+        .card { background: #111; padding: 30px; border: 1px solid #333; border-radius: 10px; text-align: center; transition: 0.3s; cursor: pointer; }
+        .card img { width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain; }
+        footer { background-color: #111; color: #888; padding: 50px 5%; border-top: 1px solid #222; font-size: 14px; }
     </style>
 </head>
 <body class="lang-ko">
@@ -97,7 +119,7 @@
                 <button class="nav-arrow arrow-right" onclick="nextProductImg()">&#10095;</button>
             </div>
             <h2 id="detail-title" style="margin-bottom:15px; color:#FF6600;"></h2>
-            <div id="detail-desc" style="text-align:left; color:#555; font-size:14px; line-height:1.7; margin-bottom:15px; max-height:450px; overflow-y:auto; padding-right:10px;"></div>
+            <div id="detail-desc" style="text-align:left; color:#555; font-size:14px; line-height:1.7; margin-bottom:15px; max-height:400px; overflow-y:auto; padding-right:10px;"></div>
             <button id="btn-partner-modal" onclick="goSupply()" class="submit-btn">우리 회사 제품 납품 제안하기</button>
         </div>
     </div>
@@ -121,28 +143,28 @@
         };
         const certData = {
             ko: {
-                kc: { title: "KC 인증 (국가통합인증)", desc: "<strong>의미:</strong> 대한민국 시장 유통 및 조달 납품을 위한 필수 안전 인증입니다.<br><strong>절차 안내:</strong> 제품의 위험 등급에 따라 절차가 체계적으로 구분됩니다.<br>• <strong>안전인증:</strong> 고위험군 대상이며, 최초 신청 시 해외 제조 공장 실사가 필수적으로 진행됩니다.<br>• <strong>안전확인:</strong> 일반 안전군 대상이며, <strong>공장 실사가 원칙적으로 생략</strong>되고 지정 시험기관의 시료 테스트를 중심으로 신속하게 진행됩니다.<br>• <strong>공급자적합성:</strong> 저위험군 대상으로, 가장 간소화된 자율 확인 절차입니다.<br><strong>에코비드의 역할:</strong> 방대한 인증 데이터를 바탕으로 귀사 제품에 가장 유리하고 신속한 인증 루트를 판별하여 복잡한 서류 업무를 전담합니다." },
-                kcc: { title: "KCC 인증 (전파인증)", desc: "<strong>대상:</strong> 위성 안테나, 무선 통신 단말기 등 전파를 사용하는 모든 통신기자재입니다.<br><strong>필요성:</strong> 국내 전파 환경 보호와 군·공공 통신망의 안정성을 보장하기 위한 필수 요건입니다.<br><strong>에코비드의 역할:</strong> 전파 간섭 검토부터 기술 문서 작성, 인증서 발급까지 전문 인력이 모든 과정을 대행하여 제조사의 기술적 부담을 최소화합니다." },
-                kcs: { title: "KCS 인증 (산업안전인증)", desc: "<strong>대상:</strong> 호흡보호구, 추락 방지용 로프 등 극한의 현장에서 사용되는 개인 보호구 일체입니다.<br><strong>중요성:</strong> 고용노동부가 정한 엄격한 안전 기준을 통과해야 하며, 국방 및 소방 분야 납품의 선결 조건입니다.<br><strong>에코비드의 역할:</strong> 인명 구조 장비에 특화된 인증 컨설팅을 통해 제조사가 까다로운 성능 입증 과정을 원활히 통과하도록 지원합니다." },
-                kolas: { title: "KOLAS 공인시험기관의 시험성적서", desc: "<strong>의미:</strong> 국제 표준 규격(ISO/IEC 17025) 또는 안전확인 부속서(대한민국 국가기술표준원 고시)에 따라 시험 기관의 역량을 공인받은 기관이 발급하는 성적서입니다.<br><strong>활용:</strong> 조달청 및 국방 규격(ROC) 만족 여부를 증명하는 가장 핵심적인 근거 자료로 활용됩니다.<br><strong>에코비드의 역할:</strong> 품목별 최적의 공인 시험기관을 매칭하고 성능 수치를 객관적으로 입증할 수 있도록 가이드합니다." }
+                kc: { title: "KC 인증 (국가통합인증)", desc: "<strong>의미:</strong> 대한민국 시장 유통 및 조달 납품을 위한 필수 안전 인증입니다.<br>• <strong>안전인증:</strong> 고위험군 대상, 해외 제조 공장 실사 필수.<br>• <strong>안전확인:</strong> 일반 안전군 대상, <strong>공장 실사 원칙적으로 생략</strong>.<br><strong>에코비드의 역할:</strong> 가장 유리하고 신속한 인증 루트를 판별하여 복잡한 서류 업무를 전담합니다." },
+                kcc: { title: "KCC 인증 (전파인증)", desc: "<strong>대상:</strong> 위성 안테나 등 전파를 사용하는 통신기자재.<br><strong>에코비드의 역할:</strong> 전파 간섭 검토부터 인증서 발급까지 전문 인력이 모든 과정을 대행합니다." },
+                kcs: { title: "KCS 인증 (산업안전인증)", desc: "<strong>대상:</strong> 호흡보호구 등 극한 현장용 개인 보호구.<br><strong>중요성:</strong> 국방 및 소방 분야 납품의 선결 조건입니다.<br><strong>에코비드의 역할:</strong> 인명 구조 장비에 특화된 컨설팅을 통해 까다로운 성능 입증을 지원합니다." },
+                kolas: { title: "KOLAS 공인시험성적서", desc: "<strong>의미:</strong> 국제 표준(ISO/IEC 17025)에 따라 공인받은 성적서.<br><strong>활용:</strong> 조달청 및 국방 규격(ROC) 만족 여부를 증명하는 핵심 자료.<br><strong>에코비드의 역할:</strong> 최적의 시험기관 매칭 및 성능 수치 가이드를 제공합니다." }
             },
             en: {
-                kc: { title: "KC Certification", desc: "<strong>Meaning:</strong> Mandatory safety certification for ROK market entry.<br>• <strong>Safety Cert:</strong> High-risk items; mandatory factory inspections.<br>• <strong>Safety Confirmation:</strong> <strong>Factory inspections are waived</strong> in principle; focused on lab testing.<br><strong>ECOBID's Role:</strong> We identify the fastest route and handle all paperwork based on our extensive database." },
-                kcc: { title: "KCC (Wireless Certification)", desc: "<strong>Scope:</strong> All telecommunication equipment using radio waves.<br><strong>Requirement:</strong> Mandatory for domestic radio frequency protection.<br><strong>ECOBID's Role:</strong> Our experts handle everything from interference review to document preparation, minimizing technical burdens." },
-                kcs: { title: "KCS (Safety Certification)", desc: "<strong>Scope:</strong> PPE for extreme environments. Prerequisite for defense and firefighting supply.<br><strong>ECOBID's Role:</strong> Specialized consulting for life-saving gear to ensure smooth performance verification." },
-                kolas: { title: "KOLAS Accredited Testing Report", desc: "<strong>Meaning:</strong> Reports issued by laboratories accredited under international standards (ISO/IEC 17025).<br><strong>Utility:</strong> Critical evidence for proving compliance with Defense procurement specifications (ROC).<br><strong>ECOBID's Role:</strong> Matching items with optimal labs and guiding objective performance verification." }
+                kc: { title: "KC Certification", desc: "<strong>Meaning:</strong> Mandatory safety certification for ROK market entry.<br>• <strong>Safety Confirmation:</strong> <strong>Factory inspections are waived</strong> in principle; focused on lab testing.<br><strong>ECOBID's Role:</strong> We identify the fastest route and handle all paperwork based on our extensive database." },
+                kcc: { title: "KCC (Wireless Certification)", desc: "<strong>Scope:</strong> Telecommunication equipment using radio waves.<br><strong>ECOBID's Role:</strong> Our experts handle everything from interference review to issuance, minimizing technical burdens." },
+                kcs: { title: "KCS (Safety Certification)", desc: "<strong>Scope:</strong> PPE for extreme environments. Prerequisite for defense and firefighting supply.<br><strong>ECOBID's Role:</strong> Specialized consulting for life-saving gear to ensure smooth verification." },
+                kolas: { title: "KOLAS Accredited Testing Report", desc: "<strong>Meaning:</strong> Reports issued under international standards (ISO/IEC 17025).<br><strong>Utility:</strong> Critical evidence for proving compliance with Defense specifications (ROC)." }
             },
             zh: {
-                kc: { title: "KC 认证 (国家整合认证)", desc: "<strong>意义:</strong> 韩国市场准入及政府采购的必备安全认证。<br>• <strong>安全认证:</strong> 高风险产品，首次申请时必须进行海外工厂审查。<br>• <strong>安全确认:</strong> <strong>原则上免除工厂审查</strong> (如绳索), 以样品测试为主。<br><strong>ECOBID 作用:</strong> 凭借丰富的认证数据，为您选择最快捷的获证方案并代办所有手续。" },
-                kcc: { title: "KCC (无线电认证)", desc: "<strong>对象:</strong> 卫星天线等所有使用无线电波的通信器材。<br><strong>必要性:</strong> 保护韩国国内无线电环境及确保国防/公共网络稳定的法律要求。<br><strong>ECOBID 作用:</strong> 专业团队代办从干扰审查到技术文件编写的所有流程，减轻制造商的技术负担。" },
-                kcs: { title: "KCS (产业安全认证)", desc: "<strong>对象:</strong> 呼吸防护器等极限环境下使用的个人防护装备。<br><strong>重要性:</strong> 必须通过严格的安全标准，是进入韩国国防及消防领域的先决条件。<br><strong>ECOBID 作用:</strong> 通过针对性咨询，协助制造商顺利通过严苛的性能验证。" },
-                kolas: { title: "KOLAS 公认测试报告", desc: "<strong>意义:</strong> 由根据国际标准(ISO/IEC 17025)获得资质的机构签发的权威报告。<br><strong>应用:</strong> 证明产品符合国防采购规格(ROC)的核心依据。<br><strong>ECOBID 作用:</strong> 匹配最适合的实验室，并指导如何客观证明各项性能指标。" }
+                kc: { title: "KC 认证 (国家整合认证)", desc: "<strong>意义:</strong> 韩国市场准入的必备安全认证。<br>• <strong>安全确认:</strong> 一般安全类产品, <strong>原则上免除工厂审查</strong>, 以样品测试为主。<br><strong>ECOBID 作用:</strong> 凭借丰富的认证数据，为您选择最快捷的获证方案并代办手续。" },
+                kcc: { title: "KCC (无线电认证)", desc: "<strong>对象:</strong> 卫星天线等无线电通信器材。<br><strong>ECOBID 作用:</strong> 专业团队代办从干扰审查到技术文件编写的所有流程。" },
+                kcs: { title: "KCS (产业安全认证)", desc: "<strong>对象:</strong> 呼吸防护器等极限环境下使用的个人防护装备。<br><strong>ECOBID 作用:</strong> 通过针对性咨询，协助制造商顺利通过严苛的性能验证。" },
+                kolas: { title: "KOLAS 公认测试报告", desc: "<strong>意义:</strong> 由根据国际标准(ISO/IEC 17025)获得资质的机构签发。<br><strong>应用:</strong> 证明产品符合国防采购规格(ROC)的核心依据。" }
             }
         };
         const langPack = {
             ko: { "nav-center-text": "대한민국 조달시장의 모든 것", "txt-hero-title": "극한의 현장,<br>완벽한 솔루션", "txt-hero-sub": "에코비드는 글로벌 시장에서 검증된 최상위 등급의 장비만을 엄선하여 대한민국 국방 및 공공기관 현장에 공급합니다.", "txt-inquiry-main": "SUPPLY PARTNERSHIP →", "txt-sec1-title": "장비 솔루션", "txt-sec2-title": "인증 대행 솔루션", "icon-t1": "호흡보호구", "icon-d1": "비상호흡기 및 공급 시스템", "icon-t2": "특수 로프", "icon-d2": "고강도 전술 로프", "icon-t3": "전술 훈련용 겨울장비", "icon-d3": "전술 스키 및 바인딩", "icon-t4": "위성 통신", "icon-d4": "이동식 위성 인프라", "icon-t5": "응급구조", "icon-d5": "구조 장비 솔루션", "cert-t1": "국가통합인증", "cert-t2": "전파인증", "cert-t3": "산업안전인증", "cert-t4": "공인시험성적", "btn-partner-modal": "우리 회사 제품 납품 제안하기", "f-company": "에코비드 (ECOBID)", "f-addr": "<strong>주소:</strong> 서울특별시 관악구 낙성대로 38, 낙성대 R&D센터 406호 (08790)", "f-tel": "<strong>대표전화:</strong> 070-7797-8611 | <strong>팩스:</strong> 0504-436-8611", "f-email": "<strong>이메일:</strong> ecobid8612@naver.com" },
-            en: { "nav-center-text": "Your Gateway to Success in ROK Procurement<br>Market with <span class='highlight-brand'>ECOBID</span>", "txt-hero-title": "Extreme Fields,<br>Absolute Solutions", "txt-hero-sub": "ECOBID selects top-tier equipment for the ROK Defense and public sectors.", "txt-inquiry-main": "SUPPLY PARTNERSHIP →", "txt-sec1-title": "Equipment Solutions", "txt-sec2-title": "Certification Consulting", "icon-t1": "Respiratory", "icon-d1": "Emergency Breathing Systems", "icon-t2": "Specialized Ropes", "icon-d2": "Tactical Ropes", "icon-t3": "Winter Tactical Gear", "icon-d3": "Tactical Skiing & Binding", "icon-t4": "Satellite Comms", "icon-d4": "Mobile Satellite Infrastructure", "icon-t5": "Rescue Gear", "icon-d5": "Rescue Solutions", "cert-t1": "KC Cert", "cert-t2": "Wireless Cert", "cert-t3": "Safety Cert", "cert-t4": "KOLAS Report", "btn-partner-modal": "Propose Supply Partnership", "f-company": "ECOBID", "f-addr": "<strong>Addr:</strong> #406, Nakseongdae R&D Center, Seoul, Korea (08790)", "f-tel": "<strong>Tel:</strong> +82-70-7797-8611 | <strong>Fax:</strong> +82-0504-436-8611", "f-email": "<strong>Email:</strong> ecobid8612@naver.com" },
-            zh: { "nav-center-text": "与 <span class='highlight-brand'>ECOBID</span> 携手开启<br>韩国采购市场成功之路", "txt-hero-title": "极限环境,<br>完美的解决方案", "txt-hero-sub": "ECOBID 为韩国国防及公共部门提供全球顶级设备。", "txt-inquiry-main": "提交供货提议 →", "txt-sec1-title": "设备解决方案", "txt-sec2-title": "认证代理解决方案", "icon-t1": "呼吸保护", "icon-d1": "紧急呼吸及供应系统", "icon-t2": "特种绳索", "icon-d2": "高强度战术绳索", "icon-t3": "冬季战术训练装备", "icon-d3": "战术滑雪及固定器", "icon-t4": "卫星通信", "icon-d4": "移动卫星基础设施", "icon-t5": "应急救援", "icon-d5": "救援设备解决方案", "cert-t1": "国家整合认证", "cert-t2": "无线电认证", "cert-t3": "产业安全认证", "cert-t4": "公认测试报告", "btn-partner-modal": "提交供货合作提议", "f-company": "ECOBID (에코비드)", "f-addr": "<strong>Addr:</strong> #406, Nakseongdae R&D Center, Seoul, Korea (08790)<br><strong>(地址):</strong> 韩国 首尔 冠岳区 落星垈路 38 (08790)", "f-tel": "<strong>电话:</strong> +82-70-7797-8611 | <strong>传真:</strong> +82-0504-436-8611", "f-email": "<strong>电子邮箱:</strong> ecobid8612@naver.com" }
+            en: { "nav-center-text": "Your Gateway to Success in ROK Procurement<br>Market with <span class='highlight-brand'>ECOBID</span>", "txt-hero-title": "Extreme Fields,<br>Absolute Solutions", "txt-hero-sub": "ECOBID selects top-tier equipment for the ROK Defense and public sectors.", "txt-inquiry-main": "SUPPLY PARTNERSHIP →", "txt-sec1-title": "Equipment Solutions", "txt-sec2-title": "Certification Consulting", "icon-t1": "Respiratory", "icon-d1": "Emergency Breathing Systems", "icon-t2": "Specialized Ropes", "icon-d2": "Tactical Ropes", "icon-t3": "Winter Tactical Gear", "icon-d3": "Tactical Skiing & Binding", "icon-t4": "Satellite Comms", "icon-d4": "Mobile Satellite Infrastructure", "icon-t5": "Rescue Gear", "icon-d5": "Rescue Solutions", "cert-t1": "KC Cert", "cert-t2": "Wireless Cert", "cert-t3": "Safety Cert", "cert-t4": "KOLAS Report", "btn-partner-modal": "Propose Supply Partnership", "f-company": "ECOBID", "f-addr": "<strong>Addr:</strong> #406, Nakseongdae R&D Center, Seoul, Korea", "f-tel": "<strong>Tel:</strong> +82-70-7797-8611 | <strong>Fax:</strong> +82-0504-436-8611", "f-email": "<strong>Email:</strong> ecobid8612@naver.com" },
+            zh: { "nav-center-text": "与 <span class='highlight-brand'>ECOBID</span> 携手开启<br>韩国采购市场成功之路", "txt-hero-title": "极限环境,<br>完美的解决方案", "txt-hero-sub": "ECOBID 为韩国国防及公共部门提供全球顶级设备。", "txt-inquiry-main": "提交供货提议 →", "txt-sec1-title": "设备解决方案", "txt-sec2-title": "认证代理解决方案", "icon-t1": "呼吸保护", "icon-d1": "紧急呼吸及供应系统", "icon-t2": "特种绳索", "icon-d2": "高强度战术绳索", "icon-t3": "冬季战术훈련장비", "icon-d3": "战术滑雪及固定器", "icon-t4": "卫星通信", "icon-d4": "移动卫星基础设施", "icon-t5": "应急救援", "icon-d5": "救援设备解决方案", "cert-t1": "国家整合认证", "cert-t2": "无线电认证", "cert-t3": "产业安全认证", "cert-t4": "公认测试报告", "btn-partner-modal": "提交供货合作提议", "f-company": "ECOBID (에코비드)", "f-addr": "<strong>Addr:</strong> #406, Nakseongdae R&D Center, Seoul, Korea<br><strong>(地址):</strong> 韩国 首尔 冠岳区 落星垈路 38 (08790)", "f-tel": "<strong>电话:</strong> +82-70-7797-8611 | <strong>传真:</strong> +82-0504-436-8611", "f-email": "<strong>电子邮箱:</strong> ecobid8612@naver.com" }
         };
         function changeLang(lang) {
             currentLang = lang; document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn-' + lang).classList.add('active');
