@@ -58,6 +58,13 @@
         .submit-btn { width: 100%; padding: 15px; background: #2E7D32; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-top: 10px; }
         .card { background: #111; padding: 30px; border: 1px solid #333; border-radius: 10px; text-align: center; transition: 0.3s; cursor: pointer; }
         .card img { width: 60px; height: 60px; margin-bottom: 20px; object-fit: contain; }
+        #services .card { padding: 14px 14px 22px; overflow: hidden; }
+        #services .card:hover { border-color: #FF6600; transform: translateY(-3px); }
+        #services .card img.thumb { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: #fff; border-radius: 6px; margin: 0 0 14px; }
+        #services .card img.thumb-icon { object-fit: contain; padding: 18%; box-sizing: border-box; }
+        #services .card h3 { margin: 0 0 6px; font-size: 17px; }
+        #services .card p { margin: 0; font-size: 13px; color: #bbb; }
+        @media (max-width: 600px) { #services .grid { grid-template-columns: 1fr 1fr; gap: 12px; } #services .card { padding: 8px 8px 14px; } #services .card h3 { font-size: 14px; } #services .card p { font-size: 11px; } }
         footer { background-color: #111; color: #888; padding: 50px 5%; border-top: 1px solid #222; font-size: 14px; }
     </style>
 </head>
@@ -92,20 +99,20 @@
     <section id="services">
         <h2 id="txt-sec1-title" class="sec-title">장비 솔루션</h2>
         <div class="grid">
-            <div class="card" onclick="openProductDetail('mask')"><img src="icon_mask.png"><h3 id="icon-t1">호흡보호구</h3><p id="icon-d1">비상호흡기 및 공급 시스템</p></div>
-            <div class="card" onclick="openProductDetail('rope')"><img src="icon_rope.png"><h3 id="icon-t2">특수 로프</h3><p id="icon-d2">고강도 전술 로프</p></div>
-            <div class="card" onclick="openProductDetail('fastrope')"><img src="icon_fastrope.svg"><h3 id="icon-t6">패스트로프</h3><p id="icon-d6">헬기 강하용 전술 패스트로프</p></div>
-            <div class="card" onclick="openProductDetail('staticrope')"><img src="icon_staticrope.svg"><h3 id="icon-t7">정적로프</h3><p id="icon-d7">구조·하강용 스태틱 로프</p></div>
-            <div class="card" onclick="openProductDetail('dynamicrope')"><img src="icon_dynamicrope.svg"><h3 id="icon-t8">동적로프</h3><p id="icon-d8">등반·추락충격 흡수용 다이내믹 로프</p></div>
-            <div class="card" onclick="openProductDetail('petzl')"><img src="icon_pulley.svg"><h3 id="icon-t14">로프 구조장비</h3><p id="icon-d14">PETZL 하강기·등강기·도르래</p></div>
-            <div class="card" onclick="openProductDetail('hooks')"><img src="icon_carabiner.svg"><h3 id="icon-t13">안전고리·하강장비</h3><p id="icon-d13">카라비너, 하강기, 등강기</p></div>
-            <div class="card" onclick="openProductDetail('lanyard')"><img src="icon_lanyard.svg"><h3 id="icon-t9">전술 랜야드·카라비너</h3><p id="icon-d9">Fusion Tactical 랜야드 · AUSTRIALPIN PIRUM · RIG-IT</p></div>
-            <div class="card" onclick="openProductDetail('boot')"><img src="icon_boot.svg"><h3 id="icon-t10">전술화·전술부츠</h3><p id="icon-d10">작전·훈련용 전술 신발</p></div>
-            <div class="card" onclick="openProductDetail('rangefinder')"><img src="icon_rangefinder.svg"><h3 id="icon-t11">레이저 사거리측정기</h3><p id="icon-d11">전술용 레이저 거리측정 장비</p></div>
-            <div class="card" onclick="openProductDetail('ski')"><img src="icon_ski.png"><h3 id="icon-t3">전술 훈련용 겨울장비</h3><p id="icon-d3">SERKET Scout 스키 · Patrol 바인딩</p></div>
-            <div class="card" onclick="openProductDetail('mtnski')"><img src="icon_mtnski.svg"><h3 id="icon-t12">산악스키·바인딩</h3><p id="icon-d12">산악스키, 투어링 바인딩 및 부속</p></div>
-            <div class="card" onclick="openProductDetail('sat')"><img src="icon_sat.png"><h3 id="icon-t4">위성 통신</h3><p id="icon-d4">이동식 위성 인프라</p></div>
-            <div class="card" onclick="openProductDetail('rescue')"><img src="icon_rescue.png"><h3 id="icon-t5">응급구조</h3><p id="icon-d5">구조 장비 솔루션</p></div>
+            <div class="card" onclick="openProductDetail('mask')"><img class="thumb" src="thumbs/mask.jpg" alt="" loading="lazy"><h3 id="icon-t1">호흡보호구</h3><p id="icon-d1">비상호흡기 및 공급 시스템</p></div>
+            <div class="card" onclick="openProductDetail('rope')"><img class="thumb" src="thumbs/rope.jpg" alt="" loading="lazy"><h3 id="icon-t2">특수 로프</h3><p id="icon-d2">고강도 전술 로프</p></div>
+            <div class="card" onclick="openProductDetail('fastrope')"><img class="thumb" src="thumbs/fastrope.jpg" alt="" loading="lazy"><h3 id="icon-t6">패스트로프</h3><p id="icon-d6">헬기 강하용 전술 패스트로프</p></div>
+            <div class="card" onclick="openProductDetail('staticrope')"><img class="thumb" src="thumbs/staticrope.jpg" alt="" loading="lazy"><h3 id="icon-t7">정적로프</h3><p id="icon-d7">구조·하강용 스태틱 로프</p></div>
+            <div class="card" onclick="openProductDetail('dynamicrope')"><img class="thumb" src="thumbs/dynamicrope.jpg" alt="" loading="lazy"><h3 id="icon-t8">동적로프</h3><p id="icon-d8">등반·추락충격 흡수용 다이내믹 로프</p></div>
+            <div class="card" onclick="openProductDetail('petzl')"><img class="thumb" src="thumbs/petzl.jpg" alt="" loading="lazy"><h3 id="icon-t14">로프 구조장비</h3><p id="icon-d14">PETZL 하강기·등강기·도르래</p></div>
+            <div class="card" onclick="openProductDetail('hooks')"><img class="thumb" src="thumbs/hooks.jpg" alt="" loading="lazy"><h3 id="icon-t13">안전고리·하강장비</h3><p id="icon-d13">카라비너, 하강기, 등강기</p></div>
+            <div class="card" onclick="openProductDetail('lanyard')"><img class="thumb" src="thumbs/lanyard.jpg" alt="" loading="lazy"><h3 id="icon-t9">전술 랜야드·카라비너</h3><p id="icon-d9">Fusion Tactical 랜야드 · AUSTRIALPIN PIRUM · RIG-IT</p></div>
+            <div class="card" onclick="openProductDetail('boot')"><img class="thumb thumb-icon" src="icon_boot.svg" alt="" loading="lazy"><h3 id="icon-t10">전술화·전술부츠</h3><p id="icon-d10">작전·훈련용 전술 신발</p></div>
+            <div class="card" onclick="openProductDetail('rangefinder')"><img class="thumb thumb-icon" src="icon_rangefinder.svg" alt="" loading="lazy"><h3 id="icon-t11">레이저 사거리측정기</h3><p id="icon-d11">전술용 레이저 거리측정 장비</p></div>
+            <div class="card" onclick="openProductDetail('ski')"><img class="thumb" src="thumbs/ski.jpg" alt="" loading="lazy"><h3 id="icon-t3">전술 훈련용 겨울장비</h3><p id="icon-d3">SERKET Scout 스키 · Patrol 바인딩</p></div>
+            <div class="card" onclick="openProductDetail('mtnski')"><img class="thumb" src="thumbs/mtnski.jpg" alt="" loading="lazy"><h3 id="icon-t12">산악스키·바인딩</h3><p id="icon-d12">산악스키, 투어링 바인딩 및 부속</p></div>
+            <div class="card" onclick="openProductDetail('sat')"><img class="thumb" src="thumbs/sat.jpg" alt="" loading="lazy"><h3 id="icon-t4">위성 통신</h3><p id="icon-d4">이동식 위성 인프라</p></div>
+            <div class="card" onclick="openProductDetail('rescue')"><img class="thumb" src="thumbs/rescue.jpg" alt="" loading="lazy"><h3 id="icon-t5">응급구조</h3><p id="icon-d5">구조 장비 솔루션</p></div>
         </div>
     </section>
 
