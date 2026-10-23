@@ -91,7 +91,7 @@
 
   var fab = document.createElement('button'); fab.className = 'chat-fab'; fab.type = 'button';
   var panel = document.createElement('div'); panel.className = 'chat-panel'; panel.setAttribute('role', 'dialog');
-  panel.innerHTML = '<div class="chat-head"><div><b id="chat-title"></b><small id="chat-sub"></small></div><button class="chat-x" type="button" aria-label="close">&times;</button></div>' +
+  panel.innerHTML = '<div class="chat-head"><div><b id="chat-title"></b><small id="chat-sub"></small></div><div style="display:flex;gap:4px;align-items:center"><button class="chat-x chat-re" type="button" aria-label="restart" title="restart" style="font-size:20px">&#8635;</button><button class="chat-x chat-close" type="button" aria-label="close">&times;</button></div></div>' +
     '<div class="chat-body" id="chat-body"></div>' +
     '<div class="chat-foot" id="chat-foot"><textarea id="chat-in" rows="1"></textarea><button type="button" id="chat-send">➤</button></div>';
   document.body.appendChild(fab); document.body.appendChild(panel);
@@ -150,7 +150,7 @@
     again.onclick = start;
     send.onclick = function () {
       if (!document.getElementById('chat-ok').checked) { say(t.needConsent, 'err'); return; }
-      send.disabled = true; again.disabled = true; submit();
+      send.disabled = true; submit(function (ok) { if (!ok) send.disabled = false; else again.disabled = true; });
     };
     w.appendChild(send); w.appendChild(again); block(w);
   }
@@ -159,7 +159,7 @@
     var lines = ['company', 'phone', 'email', 'items', 'message'].map(function (k, i) { return t.labels[i] + ': ' + data[k]; }).join('\n');
     return 'mailto:' + RECEIVER + '?subject=' + encodeURIComponent('[ECOBID 챗봇 상담] ' + data.company) + '&body=' + encodeURIComponent(lines);
   }
-  function submit() {
+  function submit(done) {
     var t = T[L]; var wait = say(t.sending);
     var payload = {
       _subject: '[ECOBID 챗봇 상담] ' + data.company + ' / ' + data.items,
@@ -169,11 +169,17 @@
       '접수 언어 Language': L, '개인정보 동의 Consent': 'Y', '접수 페이지 Page': location.href
     };
     fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })
-      .then(function () { wait.remove(); say(t.ok); })
-      .catch(function () {
-        wait.remove(); say(t.fail, 'err');
-        var a = document.createElement('a'); a.className = 'cbtn pri'; a.href = mailtoLink(); a.textContent = t.mail; block(a);
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || ('HTTP ' + r.status)); }); })
+      .then(function () { wait.remove(); say(t.ok); if (done) done(true); })
+      .catch(function (e) {
+        wait.remove();
+        if (window.console) console.warn('[ECOBID chatbot] send failed:', e && e.message);
+        say(t.fail, 'err');
+        var w = document.createElement('div');
+        var a = document.createElement('a'); a.className = 'cbtn pri'; a.href = mailtoLink(); a.textContent = t.mail;
+        var again = document.createElement('button'); again.type = 'button'; again.className = 'cbtn sec'; again.textContent = t.edit; again.onclick = start;
+        w.appendChild(a); w.appendChild(again); block(w);
+        if (done) done(false);
       });
   }
   function start() { setLabels(); body.innerHTML = ''; step = 0; data = {}; say(T[L].hello); ask(); }
@@ -181,7 +187,8 @@
   function close() { panel.classList.remove('open'); }
 
   fab.onclick = function () { panel.classList.contains('open') ? close() : open(); };
-  panel.querySelector('.chat-x').onclick = close;
+  panel.querySelector('.chat-close').onclick = close;
+  panel.querySelector('.chat-re').onclick = start;
   panel.querySelector('#chat-send').onclick = function () { if (step === 3) { var v = input.value.trim(); if (v) { picked.push(v); input.value = ''; say(esc(v), 'me'); } return; } var v2 = input.value.trim(); if (!v2) { say(T[L].empty, 'err'); return; } accept(v2); };
   input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); panel.querySelector('#chat-send').click(); } });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
