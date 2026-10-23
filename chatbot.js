@@ -1,7 +1,7 @@
 /* ECOBID 챗봇 상담 — 회사명·연락처·이메일·관심 아이템·상담 내용을 받아 이메일로 접수 */
 (function () {
   var RECEIVER = 'ecobid8612@gmail.com';
-  var ENDPOINT = 'https://formsubmit.co/ajax/' + RECEIVER;
+  var ENDPOINT = 'https://formsubmit.co/ajax/14a328a8f7aee874d0ab962f3578fabb';
 
   var T = {
     ko: {
@@ -16,7 +16,7 @@
       send: '상담 접수하기', edit: '처음부터 다시', sending: '접수 중입니다…',
       ok: '접수되었습니다. 감사합니다! 담당자가 빠른 시일 내 연락드리겠습니다.',
       fail: '전송에 실패했습니다. 아래 버튼으로 이메일을 보내주시거나 대표전화 070-7797-8611로 연락 부탁드립니다.',
-      mail: '이메일로 보내기', needConsent: '개인정보 수집·이용에 동의해 주세요.', cardT: '챗봇 상담', cardD: '견적·납품·제품 문의 접수', fab: '상담'
+      mail: '이메일로 보내기', copy: '내용 복사', copied: '복사되었습니다. 메일 본문에 붙여넣어 보내주세요.', to: '받는 주소', needConsent: '개인정보 수집·이용에 동의해 주세요.', cardT: '챗봇 상담', cardD: '견적·납품·제품 문의 접수', fab: '상담'
     },
     en: {
       title: 'ECOBID Chat Inquiry', sub: 'We will contact you as soon as possible',
@@ -30,7 +30,7 @@
       send: 'Submit inquiry', edit: 'Start over', sending: 'Sending…',
       ok: 'Thank you! Your inquiry has been received and we will contact you shortly.',
       fail: 'Sending failed. Please email us using the button below or call +82-70-7797-8611.',
-      mail: 'Send by email', needConsent: 'Please agree to the personal data notice.', cardT: 'Chat Inquiry', cardD: 'Quotes, supply & product questions', fab: 'Chat'
+      mail: 'Send by email', copy: 'Copy text', copied: 'Copied. Paste it into your email.', to: 'Send to', needConsent: 'Please agree to the personal data notice.', cardT: 'Chat Inquiry', cardD: 'Quotes, supply & product questions', fab: 'Chat'
     },
     zh: {
       title: 'ECOBID 在线咨询', sub: '我们会尽快与您联系',
@@ -44,7 +44,7 @@
       send: '提交咨询', edit: '重新填写', sending: '提交中…',
       ok: '提交成功，谢谢！我们会尽快与您联系。',
       fail: '发送失败。请点击下方按钮发送邮件，或致电 +82-70-7797-8611。',
-      mail: '通过邮件发送', needConsent: '请同意个人信息收集与使用。', cardT: '在线咨询', cardD: '报价、供货及产品咨询', fab: '咨询'
+      mail: '通过邮件发送', copy: '复制内容', copied: '已复制，请粘贴到邮件中发送。', to: '收件地址', needConsent: '请同意个人信息收集与使用。', cardT: '在线咨询', cardD: '报价、供货及产品咨询', fab: '咨询'
     }
   };
 
@@ -159,6 +159,14 @@
     var lines = ['company', 'phone', 'email', 'items', 'message'].map(function (k, i) { return t.labels[i] + ': ' + data[k]; }).join('\n');
     return 'mailto:' + RECEIVER + '?subject=' + encodeURIComponent('[ECOBID 챗봇 상담] ' + data.company) + '&body=' + encodeURIComponent(lines);
   }
+  function plainText() {
+    var t = T[L];
+    return '[ECOBID 상담] ' + data.company + '\n' + ['company', 'phone', 'email', 'items', 'message'].map(function (k, i) { return t.labels[i] + ': ' + data[k]; }).join('\n');
+  }
+  function copyText(txt, ok) {
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(txt).then(ok, function () { legacy(); }); } else legacy();
+    function legacy() { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) {} ta.remove(); }
+  }
   function submit(done) {
     var t = T[L]; var wait = say(t.sending);
     var payload = {
@@ -176,9 +184,14 @@
         if (window.console) console.warn('[ECOBID chatbot] send failed:', e && e.message);
         say(t.fail, 'err');
         var w = document.createElement('div');
+        var info = document.createElement('div'); info.className = 'sum';
+        info.innerHTML = '<div><span>' + t.to + '</span> <b>' + RECEIVER + '</b></div><div><span>Tel</span> 070-7797-8611</div>';
+        w.appendChild(info);
         var a = document.createElement('a'); a.className = 'cbtn pri'; a.href = mailtoLink(); a.textContent = t.mail;
+        var cp = document.createElement('button'); cp.type = 'button'; cp.className = 'cbtn sec'; cp.textContent = t.copy;
+        cp.onclick = function () { copyText(plainText(), function () { say(t.copied); }); };
         var again = document.createElement('button'); again.type = 'button'; again.className = 'cbtn sec'; again.textContent = t.edit; again.onclick = start;
-        w.appendChild(a); w.appendChild(again); block(w);
+        w.appendChild(a); w.appendChild(cp); w.appendChild(again); block(w);
         if (done) done(false);
       });
   }
