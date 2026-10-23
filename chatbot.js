@@ -32,6 +32,21 @@
       fail: 'Sending failed. Please email us using the button below or call +82-70-7797-8611.',
       mail: 'Send by email', copy: 'Copy text', copied: 'Copied. Paste it into your email.', to: 'Send to', needConsent: 'Please agree to the personal data notice.', cardT: 'Chat Inquiry', cardD: 'Quotes, supply & product questions', fab: 'Chat'
     },
+    ja: {
+      title: 'ECOBID チャット相談', sub: 'できるだけ早くご連絡いたします',
+      hello: 'こんにちは、ECOBID（エコビッド）です。😊<br>会社名、連絡先とメールアドレス、ご関心のアイテム、ご相談内容を簡単にご記入いただければ、早急にご連絡いたします。',
+      q: ['まず会社名（機関名）を教えてください。', 'ご担当者の連絡先（電話番号）を教えてください。', 'ご返信先のメールアドレスを教えてください。', 'ご関心のアイテムを選択または入力してください。（複数選択可）', 'ご相談内容を簡単にご記入ください。'],
+      labels: ['会社名', '連絡先', 'メール', '関心アイテム', '相談内容'],
+      ph: ['例）ECOBID', '例）+81-90-1234-5678', '例）name@company.com', '入力して Enter', '内容をご入力ください'],
+      badPhone: '電話番号をご確認ください。（数字8桁以上）', badEmail: 'メールアドレスの形式をご確認ください。', empty: '内容をご入力ください。',
+      itemsDone: '選択完了', summary: '以下の内容で相談を送信しますか？',
+      consent: '[必須] 個人情報の収集・利用に同意します — 収集項目: 会社名、連絡先、メール / 目的: ご相談への回答 / 保管期間: 相談終了後1年',
+      send: '相談を送信', edit: '最初からやり直す', sending: '送信中です…',
+      ok: '送信されました。ありがとうございます！担当者より早急にご連絡いたします。',
+      fail: '送信に失敗しました。下のボタンからメールをお送りいただくか、+82-70-7797-8611までお電話ください。',
+      mail: 'メールで送る', copy: '内容をコピー', copied: 'コピーしました。メール本文に貼り付けてお送りください。', to: '宛先',
+      needConsent: '個人情報の収集・利用にご同意ください。', cardT: 'チャット相談', cardD: '見積り・納品・製品のお問い合わせ', fab: '相談'
+    },
     zh: {
       title: 'ECOBID 在线咨询', sub: '我们会尽快与您联系',
       hello: '您好，这里是 ECOBID。😊<br>请留下公司名称、联系电话和邮箱、感兴趣的产品及简要咨询内容，我们会尽快与您联系。',
