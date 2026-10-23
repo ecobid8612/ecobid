@@ -113,6 +113,7 @@
             <div class="card" onclick="openProductDetail('mtnski')"><img class="thumb" src="thumbs/mtnski.jpg" alt="" loading="lazy"><h3 id="icon-t12">산악스키·바인딩</h3><p id="icon-d12">산악스키, 투어링 바인딩 및 부속</p></div>
             <div class="card" onclick="openProductDetail('sat')"><img class="thumb" src="thumbs/sat.jpg" alt="" loading="lazy"><h3 id="icon-t4">위성 통신</h3><p id="icon-d4">Wideye SAFARI™ 차량용 BGAN 단말</p></div>
             <div class="card" onclick="openProductDetail('rescue')"><img class="thumb" src="thumbs/rescue.jpg" alt="" loading="lazy"><h3 id="icon-t5">응급구조</h3><p id="icon-d5">구조 장비 솔루션</p></div>
+            <div class="card chat-card" onclick="openChatbot()"><img class="thumb" src="icon_chat.svg" alt="" loading="lazy"><h3>챗봇 상담</h3><p>견적·납품·제품 문의 접수</p></div>
         </div>
     </section>
 
@@ -198,5 +199,6 @@
         const slides = document.querySelectorAll('.slide-item'); let currentSlide = 0;
         setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 4000);
     </script>
+    <script src="chatbot.js?v=1"></script>
 </body>
 </html>
